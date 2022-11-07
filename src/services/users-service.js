@@ -44,17 +44,17 @@ export const deleteUser = async (uid) => {
 }
 
 export const deleteUsersByUsername = async (username) => {
-  const resp = await axios.delete(`${USERS_API}/username/${username}/delete`)
-  const usersDeleted = resp.data.usersDeleted;
-  return usersDeleted
+  const targetUrl = `${USERS_API}/username/${username}/delete`
+  const resp = await axios.delete(targetUrl)
+  const usersDeletedResp = resp.data.usersDeleted;
+  return usersDeletedResp
   // axios.get(`${USERS_API}/username/${username}/delete`)
   //     .then(response => response.data);
 }
 
-// TODO need to implement on application code
-export const findUserByCredentials = (credentials) => {
-  axios.post(`${LOGIN_API}`, credentials)
-      .then(response => response.data);
+export const findUserByCredentials = async (credentials) => {
+  const resp = await axios.post(`${LOGIN_API}`, credentials);
+  return resp.data
 }
 
 const service = {

@@ -1,6 +1,6 @@
 import {
   createUser,
-  deleteUsersByUsername, findAllUsers,
+  deleteUsersByUsername, findAllUsers, findUserByCredentials,
   findUserById
 } from "../services/users-service";
 
@@ -158,4 +158,45 @@ describe('findAllUsers',  () => {
       expect(user.email).toEqual(`${username}@stooges.com`);
     });
   });
+});
+
+describe('findUserByCredentials',  () => {
+  // sample user we want to retrieve
+  const adam = {
+    username: 'adam_smith',
+    password: 'not0sum',
+    email: 'wealth@nations.com'
+  };
+
+  // setup before running test
+  beforeAll(async () => {
+    // clean up before the test making sure the user doesn't already exist
+    return await deleteUsersByUsername(adam.username)
+  });
+
+  // clean up after ourselves
+  afterAll(async () => {
+    // remove any data we inserted
+    return await deleteUsersByUsername(adam.username);
+  });
+
+  test('can retrieve user from REST API by primary key', async () => {
+    // insert the user in the database
+    const newUser = await createUser(adam);
+    const cred = {
+      username: newUser.username,
+      password: newUser.password
+    }
+    const userFound = await findUserByCredentials(cred)
+
+    // verify new user matches the parameter user
+    expect(adam.username).toEqual(userFound.username);
+    expect(adam.password).toEqual(userFound.password);
+    expect(adam.email).toEqual(userFound.email);
+
+  });
+
+
+
+
 });
