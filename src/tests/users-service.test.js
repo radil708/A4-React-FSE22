@@ -4,6 +4,7 @@ import {
   findUserById
 } from "../services/users-service";
 
+// TODO ask why starter code missing async and {}
 describe('createUser', () => {
   // sample user to insert
   const ripley = {
@@ -13,16 +14,16 @@ describe('createUser', () => {
   };
 
   // setup test before running test
-  beforeAll(() => {
+  beforeAll(async () => {
     // remove any/all users to make sure we create it in the test
     //return deleteUsersByUsername(ripley.username);
-    deleteUsersByUsername(ripley.username)
+    await deleteUsersByUsername(ripley.username)
   })
 
   // clean up after test runs
-  afterAll(() => {
+  afterAll(async () => {
     // remove any data we created
-    return deleteUsersByUsername(ripley.username);
+    await deleteUsersByUsername(ripley.username);
   })
 
   test('can insert new users with REST API', async () => {
@@ -46,23 +47,25 @@ describe('deleteUsersByUsername', () => {
   };
 
   // setup the tests before verification
-  beforeAll(() => {
+  beforeAll(async () => {
     // insert the sample user we then try to remove
-    return createUser(sowell);
+    //return createUser(sowell);
+
+    await createUser(sowell)
   });
 
   // clean up after test runs
-  afterAll(() => {
+  afterAll(async () => {
     // remove any data we created
-    return deleteUsersByUsername(sowell.username);
+    await deleteUsersByUsername(sowell.username);
   })
 
   test('can delete users from REST API by username', async () => {
     // delete a user by their username. Assumes user already exists
     const status = await deleteUsersByUsername(sowell.username);
-
     // verify we deleted at least one user by their username
-    expect(status.deletedCount).toBeGreaterThanOrEqual(1);
+    //expect(status.deletedCount).toBeGreaterThanOrEqual(1);
+    expect(status).toBeGreaterThanOrEqual(1);
   });
 });
 
@@ -75,15 +78,15 @@ describe('findUserById',  () => {
   };
 
   // setup before running test
-  beforeAll(() => {
+  beforeAll(async () => {
     // clean up before the test making sure the user doesn't already exist
-    return deleteUsersByUsername(adam.username)
+    return await deleteUsersByUsername(adam.username)
   });
 
   // clean up after ourselves
-  afterAll(() => {
+  afterAll(async () => {
     // remove any data we inserted
-    return deleteUsersByUsername(adam.username);
+    return await deleteUsersByUsername(adam.username);
   });
 
   test('can retrieve user from REST API by primary key', async () => {
@@ -96,7 +99,10 @@ describe('findUserById',  () => {
     expect(newUser.email).toEqual(adam.email);
 
     // retrieve the user from the database by its primary key
-    const existingUser = await findUserById(newUser._id);
+    //const existingUser = await findUserById(newUser._id);
+
+    // my controller sends a user as an object and id is the userId property in the response
+    const existingUser = await findUserById(newUser.userId);
 
     // verify retrieved user matches parameter user
     expect(existingUser.username).toEqual(adam.username);
@@ -116,20 +122,20 @@ describe('findAllUsers',  () => {
   // setup data before test
   beforeAll(() =>
     // insert several known users
-    usernames.map(username =>
-      createUser({
-        username,
-        password: `${username}123`,
-        email: `${username}@stooges.com`
-      })
+    usernames.map(async username =>
+        await createUser({
+          username,
+          password: `${username}123`,
+          email: `${username}@stooges.com`
+        })
     )
   );
 
   // clean up after ourselves
   afterAll(() =>
     // delete the users we inserted
-    usernames.map(username =>
-      deleteUsersByUsername(username)
+    usernames.map(async username =>
+        await deleteUsersByUsername(username)
     )
   );
 
