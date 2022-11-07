@@ -17,7 +17,7 @@ export const createUser = async (user) => {
   //   console.log(response.data)
   //   response.data});
   const res = await axios.post(USERS_API, user)
-  return res.data
+  return await res.data
 
 }
 
@@ -46,6 +46,9 @@ export const deleteUser = async (uid) => {
 export const deleteUsersByUsername = async (username) => {
   const targetUrl = `${USERS_API}/username/${username}/delete`
   const resp = await axios.delete(targetUrl)
+  if (resp == undefined || resp == null) {
+    return 0;
+  }
   const usersDeletedResp = resp.data.usersDeleted;
   return usersDeletedResp
   // axios.get(`${USERS_API}/username/${username}/delete`)
