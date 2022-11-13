@@ -65,7 +65,6 @@ describe('can create tuit with REST API', () => {
 });
 
 describe('can delete tuit wtih REST API', () => {
-  // TODO: implement this
     const ripley = {
         username: 'ellenripley',
         password: 'lv426',
@@ -174,7 +173,6 @@ describe('can delete tuit wtih REST API', () => {
 });
 
 describe('can retrieve a tuit by their primary key with REST API', () => {
-  // TODO: implement this
     const ripley = {
         username: 'ellenripley',
         password: 'lv426',
@@ -271,7 +269,6 @@ describe('can retrieve a tuit by their primary key with REST API', () => {
 });
 
 describe('can retrieve all tuits with REST API', () => {
-  // TODO: implement this
     const ripley = {
         username: 'ellenripley',
         password: 'lv426',
@@ -284,9 +281,13 @@ describe('can retrieve all tuits with REST API', () => {
         email: 'wealth@nations.com'
     };
 
+    let currentTuitcount
+
 
     // setup test before running test
     beforeAll(async () => {
+        const allCurrentTuits = await findAllTuits()
+        currentTuitcount = allCurrentTuits.length
 
         // delete any existing users
         await deleteUsersByUsername(ripley.username)
@@ -318,6 +319,8 @@ describe('can retrieve all tuits with REST API', () => {
         // my app stores id of user as .userId
         await createTuit(ripUser.userId,tuitContent)
         await createTuit(adUser.userId,tuitAdam )
+        const ripleyNewContent = {"tuit":"Aliens vs Predator"}
+        await createTuit(ripUser.userId,ripleyNewContent)
     });
 
     // clean up after test runs
@@ -352,6 +355,15 @@ describe('can retrieve all tuits with REST API', () => {
 
     test ("get all tuits from db", async () => {
         const allTuits = await findAllTuits()
-        expect(2).toEqual(await allTuits.length)
+        expect(currentTuitcount + 3).toEqual(await allTuits.length)
+    })
+
+    test ("get all tuits from a specific user", async () => {
+        const ripUser = await findUserByCredentials(
+            {username: 'ellenripley',
+            password: 'lv426'}
+        )
+        const allTuitsByRipley = await findTuitByUser(ripUser.userId)
+        expect(2).toEqual(await allTuitsByRipley.length)
     })
 });

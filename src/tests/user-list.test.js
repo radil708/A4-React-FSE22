@@ -26,7 +26,7 @@ test('user list renders static user array', () => {
 test('user list renders async', async () => {
     // add user nasa
     const nasa = {
-      username: 'NASA',
+      username: 'test1',
       password: 'nasa123',
       email: 'nasa@aliens.com'
     };
@@ -37,11 +37,12 @@ test('user list renders async', async () => {
     await createUser(nasa)
 
     const users = await findAllUsers();
+
     render(
         <HashRouter>
           <UserList users={users}/>
         </HashRouter>);
-    const linkElement = screen.getByText(/NASA/i);
+    const linkElement = screen.getByText(/test1/i);
     expect(linkElement).toBeInTheDocument();
 
     await deleteUsersByUsername(nasa.username)
@@ -49,18 +50,3 @@ test('user list renders async', async () => {
 
 
 //jest.mock('axios');
-
-test('user list renders mocked', async () => {
-  axios.get.mockImplementation(() =>
-    Promise.resolve({ data: {users: MOCKED_USERS} }));
-  const response = await findAllUsers();
-  const users = response.users;
-
-  render(
-    <HashRouter>
-      <UserList users={users}/>
-    </HashRouter>);
-
-  const user = screen.getByText(/ellen_ripley/i);
-  expect(user).toBeInTheDocument();
-});
