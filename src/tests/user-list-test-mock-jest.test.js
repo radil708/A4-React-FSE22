@@ -3,7 +3,7 @@ import {screen, render} from "@testing-library/react";
 import {HashRouter} from "react-router-dom";
 import {createUser, deleteUsersByUsername, findAllUsers} from "../services/users-service";
 import axios from "axios";
-
+//NOTE** Any test files using jest myst have .test.js as the extension
 jest.mock('axios');
 
 const MOCKED_USERS = [

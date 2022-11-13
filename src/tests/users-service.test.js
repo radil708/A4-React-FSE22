@@ -112,24 +112,12 @@ describe('findUserById',  () => {
 });
 
 
-describe('findAllUsers',  () => {
+describe('findAllUsers',   () => {
 
   // sample users we'll insert to then retrieve
   const usernames = [
     "larry", "curley", "moe"
   ];
-
-  // setup data before test
-  beforeAll(() =>
-    // insert several known users
-    usernames.map(async username =>
-        await createUser({
-          username,
-          password: `${username}123`,
-          email: `${username}@stooges.com`
-        })
-    )
-  );
 
   // clean up after ourselves
   afterAll(() =>
@@ -140,11 +128,24 @@ describe('findAllUsers',  () => {
   );
 
   test('can retrieve all users from REST API', async () => {
-    // retrieve all the users
+
+    const allCurrentUsers = await findAllUsers()
+    const currentUserCount = allCurrentUsers.length
+
+    // insert several known users
+    usernames.map(async username =>
+        await createUser({
+          username,
+          password: `${username}123`,
+          email: `${username}@stooges.com`
+        })
+    )
+
+    // retrieve all the users after inserting
     const users = await findAllUsers();
 
-    // there should be a minimum number of users
-    expect(users.length).toBeGreaterThanOrEqual(usernames.length);
+    // in database there should be 3 extra users than before
+    expect(currentUserCount + 3).toBeGreaterThanOrEqual(usernames.length);
 
     // let's check each user we inserted
     const usersWeInserted = users.filter(

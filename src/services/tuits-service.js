@@ -1,7 +1,23 @@
 import axios from "axios";
 
-//Point to MY aws server
-const BASE_URL = "http://lecture-1-env.eba-mncqj36t.us-east-1.elasticbeanstalk.com"
+//on local server to save money on server costs
+let testLocal = false
+
+let BASE_URL
+
+// set to true for local server testing
+//testLocal = true
+if (testLocal) {
+    // local server testing
+    console.log("Running Local Server User Service")
+    BASE_URL = "http://localhost:4000"
+}
+else {
+    // remote server testing
+    console.log("Running Remote AWS Server Testing")
+    BASE_URL = "http://lecture-1-env.eba-mncqj36t.us-east-1.elasticbeanstalk.com"
+}
+
 //const BASE_URL = "http://my-node-express-project-env.eba-hxq4pgvm.us-east-1.elasticbeanstalk.com"
 const TUITS_API = `${BASE_URL}/api/tuits`;
 const USERS_API = `${BASE_URL}/api/users`;

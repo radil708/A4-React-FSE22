@@ -1,6 +1,23 @@
 import axios from "axios";
-//Point to MY aws server
-const BASE_URL = "http://lecture-1-env.eba-mncqj36t.us-east-1.elasticbeanstalk.com"
+
+//on local server to save money on server costs
+let testLocal = false
+
+let BASE_URL
+
+testLocal = true // set to true for local server testing
+
+if (testLocal) {
+  // local server testing
+  console.log("Running Local Server User Service")
+  BASE_URL = "http://localhost:4000"
+}
+else {
+  // remote server testing
+  console.log("Running Remote AWS Server Testing")
+  BASE_URL = "http://lecture-1-env.eba-mncqj36t.us-east-1.elasticbeanstalk.com"
+}
+
 //const BASE_URL = "http://my-node-express-project-env.eba-hxq4pgvm.us-east-1.elasticbeanstalk.com";
 // const BASE_URL = "https://software-engineering-node-fa22.herokuapp.com/api";
 // const BASE_URL = "http://localhost:4000/api";
@@ -8,7 +25,7 @@ const BASE_URL = "http://lecture-1-env.eba-mncqj36t.us-east-1.elasticbeanstalk.c
 const LOGIN_API = `${BASE_URL}/api/login`;
 const USERS_API = `${BASE_URL}/api/users`;
 
-//TODO ask why not async to start with
+//TODO ask why not async in starter code??
 export const createUser = async (user) => {
   // console.log(USERS_API)
   // fetch()
