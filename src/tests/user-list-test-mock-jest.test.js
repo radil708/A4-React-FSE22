@@ -19,6 +19,7 @@ test('user list renders mocked', async () => {
         Promise.resolve({ data: {users: MOCKED_USERS} }));
 
     const response = await findAllUsers();
+    // mock data so array has a users attr because called users in line 19
     const users = response.users;
 
     render(

@@ -6,7 +6,7 @@ let testLocal = false
 let BASE_URL
 
 //TODO comment line below to allow aws remote testing
-testLocal = true
+//testLocal = true
 if (testLocal) {
     // local server testing
     console.log("Running Local Server User Service")
