@@ -5,6 +5,7 @@ let testLocal = false
 
 let BASE_URL
 
+//TODO comment line below to allow aws remote testing
 testLocal = true // set to true for local server testing
 
 if (testLocal) {

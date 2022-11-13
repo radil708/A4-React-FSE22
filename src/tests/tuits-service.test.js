@@ -2,7 +2,6 @@ import {createUser, deleteUsersByUsername, findUserByCredentials} from "../servi
 import {createTuit, deleteTuit, findAllTuits, findTuitById, findTuitByUser} from "../services/tuits-service";
 
 describe('can create tuit with REST API', () => {
-    // TODO: implement this
     const ripley = {
         username: 'ellenripley',
         password: 'lv426',
