@@ -12,7 +12,7 @@ describe('Authentication Service Signup method', () => {
     beforeAll(async() => {
         await deleteUsersByUsername(ripley.username)
     })
-
+//FIX
     afterAll(async () => {
         await logout()
         await deleteUsersByUsername(ripley.username)
