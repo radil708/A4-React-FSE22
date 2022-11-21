@@ -6,7 +6,7 @@ let testLocal = false
 let BASE_URL
 
 //TODO comment line below to allow aws remote testing
-//testLocal = true
+testLocal = true
 if (testLocal) {
     // local server testing
     console.log("Running Local Server User Service")
@@ -21,6 +21,19 @@ else {
 //const BASE_URL = "http://my-node-express-project-env.eba-hxq4pgvm.us-east-1.elasticbeanstalk.com"
 const TUITS_API = `${BASE_URL}/api/tuits`;
 const USERS_API = `${BASE_URL}/api/users`;
+
+axios.defaults.withCredentials = true;
+const api = axios.create({
+    withCredentials: true
+});
+
+//for a4 method specific
+export const createTuitByUser = async (uid, tuit) => {
+    const url = BASE_URL + '/api/auth/users/' + uid + '/tuits'
+    const res = await api.post(url, tuit)
+    return res.data
+}
+
 
 export const findAllTuits = async () => {
     // axios.get(TUITS_API)
@@ -37,6 +50,12 @@ export const findTuitById = async (tid) => {
     return res.data
 }
 
+//for a4 method specific
+export const findTuitsByUser = async (uid) => {
+    const targetUrl = BASE_URL + `/api/users/${uid}/tuits`
+    const res = await api.get(targetUrl)
+    return res.data
+}
 export const findTuitByUser = async (uid) => {
     // axios.get(`${USERS_API}/${uid}/tuits`)
     //     .then(response => response.data);
