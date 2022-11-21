@@ -3,7 +3,7 @@ import axios from "axios";
 
 let runLocal = true
 //uncomment to before deploying to aws
-//runLocal = false
+runLocal = false
 let BASE_URL;
 
 if (runLocal == true) {
