@@ -6,7 +6,7 @@ let testLocal = false
 let BASE_URL
 
 //TODO comment line below to allow aws remote testing
-//testLocal = true // set to true for local server testing
+testLocal = true // set to true for local server testing
 
 if (testLocal) {
   // local server testing
@@ -28,20 +28,12 @@ const USERS_API = `${BASE_URL}/api/users`;
 
 //TODO ask why not async in starter code??
 export const createUser = async (user) => {
-  // console.log(USERS_API)
-  // fetch()
-  // axios.post(`${USERS_API}`, user).then(response => {
-  //   console.log("post response")
-  //   console.log(response.data)
-  //   response.data});
   const res = await axios.post(USERS_API, user)
   return await res.data
 
 }
 
 export const findAllUsers = async () => {
-  // axios.get(USERS_API)
-  //     .then(response => response.data);
   const res = await axios.get(USERS_API)
   return res.data
  }
@@ -50,8 +42,6 @@ export const findUserById = async (uid) => {
   const targetUrl = `${USERS_API}/${uid}`
   const res = await axios.get(targetUrl)
   return res.data
-  // axios.get(`${USERS_API}/${uid}`)
-  //     .then(response => response.data);
 }
 
 export const deleteUser = async (uid) => {
@@ -69,8 +59,6 @@ export const deleteUsersByUsername = async (username) => {
   }
   const usersDeletedResp = resp.data.usersDeleted;
   return usersDeletedResp
-  // axios.get(`${USERS_API}/username/${username}/delete`)
-  //     .then(response => response.data);
 }
 
 export const findUserByCredentials = async (credentials) => {
