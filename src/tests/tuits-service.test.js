@@ -1,5 +1,13 @@
 import {createUser, deleteUsersByUsername, findUserByCredentials} from "../services/users-service";
-import {createTuit, deleteTuit, findAllTuits, findTuitById, findTuitByUser} from "../services/tuits-service";
+import {
+    createTuit,
+    createTuitByUser,
+    deleteTuit,
+    findAllTuits,
+    findTuitById,
+    findTuitByUser
+} from "../services/tuits-service";
+import {signup,login,logout} from "../services/auth-service";
 
 describe('can create tuit with REST API', () => {
     const ripley = {
@@ -367,3 +375,33 @@ describe('can retrieve all tuits with REST API', () => {
         expect(2).toEqual(await allTuitsByRipley.length)
     })
 });
+
+// ************* A4 tests ************************ //
+
+describe('A4 test create Tuit by User', ()=> {
+    const testUser = {
+        username: 'A4Test1',
+        password: 'password',
+        email: 'testing@aliens.com'
+    };
+
+    beforeAll(async () => {
+        await signup(testUser)
+        await login(testUser)
+    })
+
+    afterAll(async () => {
+        await logout()
+        await deleteTuit(testUser.id)
+        await deleteUsersByUsername(testUser.username)
+    })
+
+    test('create a tuit', async () => {
+        const newTuit = {'tuit': 'test user tuit for A4'}
+        const createdTuit = await createTuitByUser(null, newTuit)
+        expect(createdTuit.tuitContent).toEqual('test user tuit for A4')
+        testUser.id = createdTuit.tuitID
+    })
+})
+
+describe('A4 testing ')

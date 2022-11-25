@@ -21,11 +21,12 @@ describe('Authentication Service Signup method', () => {
     test('sign up user and check that returns abstracted', async() => {
         const res = await signup(ripley)
         expect(res.username).toEqual(ripley.username)
+        await login(ripley)
     })
 })
 
 describe('Authentication Service login method and profile', () => {
-    //sample user to insert
+    // existing user
     const existing = {
         username: 'test1',
         password: 'testpass',
@@ -33,7 +34,7 @@ describe('Authentication Service login method and profile', () => {
 
     beforeAll(async () => {
         //logout if currently logged in
-        await logout()
+        //await logout()
         //login in to the existing profile
         await login(existing)
     })
@@ -44,8 +45,8 @@ describe('Authentication Service login method and profile', () => {
 
 
     test('profile', async() => {
+
         const res = await profile()
         expect(res.username).toEqual('test1')
-        console.log(res)
     })
 })
