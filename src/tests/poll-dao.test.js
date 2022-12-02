@@ -77,19 +77,19 @@ describe ("Create and delete poll, valid inputs", () => {
         let pollDaoResp = await createPoll(testUser._id, testPoll)
         testPoll._id = pollDaoResp._id
 
-        //await voteOnPoll(testPoll._id,testUser._id,{response : "Red"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Red"})
 
         await voteOnPoll(testPoll._id,testUser._id,{response : "Green"})
         await voteOnPoll(testPoll._id,testUser._id,{response : "Green"})
 
-        //await voteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
-        //await voteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
-        //await voteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
 
         let daoResp = await findPoll(testPoll._id)
 
-        //expect(daoResp.answerOptionsCount[0]).toEqual(1)
+        expect(daoResp.answerOptionsCount[0]).toEqual(1)
         expect(daoResp.answerOptionsCount[1]).toEqual(2)
-        //expect(daoResp.answerOptionsCount[2]).toEqual(3)
+        expect(daoResp.answerOptionsCount[2]).toEqual(3)
     })
 })
