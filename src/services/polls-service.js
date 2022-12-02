@@ -13,4 +13,23 @@ export const createPoll = async(userid, pollObject) => {
 export const deletePoll = async(pollId) => {
     let targetUrl = BASE_URL + POLLS_API + "/" + pollId
     const res = await axios.delete(targetUrl)
+    return res.data
+}
+
+export const findPoll = async(pollId) => {
+    let targetUrl = BASE_URL + POLLS_API + "/" + pollId
+    const res = await axios.get(targetUrl)
+    return res.data
+}
+
+export const voteOnPoll = async(pollId, userId, answerJson) => {
+    let targetUrl = BASE_URL + POLLS_API + "/vote/" + pollId + "/users/" + userId
+    const res = await axios.put(targetUrl,answerJson)
+    return res.data
+}
+
+export const unvoteOnPoll = async(pollId, userId, answerJson) => {
+    let targetUrl = BASE_URL + POLLS_API + "/unvote/" + pollId + "/users/" + userId
+    const res = await axios.put(targetUrl,answerJson)
+    return res.data
 }
