@@ -10,6 +10,11 @@ export const createPoll = async(userid, pollObject) => {
     return res.data;
 }
 
+export const findAllPolls = async() => {
+    const res = await axios.get(BASE_URL + POLLS_API)
+    return res.data
+}
+
 export const deletePoll = async(pollId) => {
     let targetUrl = BASE_URL + POLLS_API + "/" + pollId
     const res = await axios.delete(targetUrl)
