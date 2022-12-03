@@ -1,12 +1,12 @@
 import {createUser, deleteUser, deleteUsersByUsername} from "../services/users-service";
 import axios from "axios";
-import {createPoll, deletePoll, findAllPolls, findPoll, voteOnPoll} from "../services/polls-service";
+import {createPoll, deletePoll, findAllPolls, findPoll, unvoteOnPoll, voteOnPoll} from "../services/polls-service";
 
 const BASE_URL = "http://localhost:4000" // this only works for local testing
 const POLLS_API ="/api/polls"
 const USERS_API = `${BASE_URL}/api/users`;
 
-describe ("Create and delete poll, valid inputs", () => {
+describe ("Create and delete poll, vote and unvote valid inputs", () => {
     const testUser = {
         username: 'pollTestUser',
         password: 'testing',
@@ -31,7 +31,7 @@ describe ("Create and delete poll, valid inputs", () => {
 
     afterEach(async () => {
         // delete the poll
-        //await deletePoll(testPoll._id)
+        await deletePoll(testPoll._id)
 
         // delete user
         await deleteUser(testUser._id)
@@ -91,5 +91,33 @@ describe ("Create and delete poll, valid inputs", () => {
         expect(daoResp.answerOptionsCount[0]).toEqual(1)
         expect(daoResp.answerOptionsCount[1]).toEqual(2)
         expect(daoResp.answerOptionsCount[2]).toEqual(3)
+    })
+
+    test("unvoting mechanism", async () => {
+        // create poll by testUser
+        let pollDaoResp = await createPoll(testUser._id, testPoll)
+        testPoll._id = pollDaoResp._id
+
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Red"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Red"})
+
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Green"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Green"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Green"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Green"})
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Green"})
+
+        await voteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
+
+        await unvoteOnPoll(testPoll._id,testUser._id,{response : "Red"})
+        await unvoteOnPoll(testPoll._id,testUser._id,{response : "Blue"})
+        await unvoteOnPoll(testPoll._id,testUser._id,{response : "Green"})
+        await unvoteOnPoll(testPoll._id,testUser._id,{response : "Green"})
+
+        let daoResp = await findPoll(testPoll._id)
+
+        expect(daoResp.answerOptionsCount[0]).toEqual(1)
+        expect(daoResp.answerOptionsCount[1]).toEqual(3)
+        expect(daoResp.answerOptionsCount[2]).toEqual(0)
     })
 })
