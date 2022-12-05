@@ -24,7 +24,10 @@ export const Login = () => {
         if (controllerResp == null || controllerResp.Error != null) {
             alert("User and password combo could not be found in database")
         }
-        navigate('/profile')
+        else {
+            navigate('/profile')
+        }
+
 
         // should navigate to profile NOT profile/mytuits
         //navigate('/profile/mytuits')

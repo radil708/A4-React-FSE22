@@ -7,19 +7,18 @@ import Tuit from "../tuits/tuit";
 const MyTuits = () => {
     const [tuits, setTuits] = useState([]);
 
-
+    const findMyTuits = async () => {
+        // get username
+        let userInfo = await profile()
+        //alert(userInfo.userId)
+        // get all tuits as array
+        let allMyTuits = await tuitService.findTuitByUser(userInfo.userId)
+        //set tuits state as tuits received
+        //alert(allMyTuits.length)
+        setTuits(allMyTuits)
+    }
 
     useEffect( () => {
-        const findMyTuits = async () => {
-            // get username
-            let userInfo = await profile()
-            //alert(userInfo.userId)
-            // get all tuits as array
-            let allMyTuits = await tuitService.findTuitByUser(userInfo.userId)
-            //set tuits state as tuits received
-            //alert(allMyTuits.length)
-            setTuits(allMyTuits)
-        }
 
         try {
             findMyTuits()
@@ -38,17 +37,6 @@ const MyTuits = () => {
 
     const deleteTuit = async (tid) => {
         await tuitService.deleteTuit(tid)
-        const findMyTuits = async () => {
-            // get username
-            let userInfo = await profile()
-            //alert(userInfo.userId)
-            // get all tuits as array
-            let allMyTuits = await tuitService.findTuitByUser(userInfo.userId)
-            //set tuits state as tuits received
-            //alert(allMyTuits.length)
-            setTuits(allMyTuits)
-        }
-
         try {
             findMyTuits()
         }
