@@ -4,6 +4,7 @@ import * as service from "../../services/tuits-service";
 import * as authService from "../../services/auth-service";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
+import {findAllTuits, findTuitByUser} from "../../services/tuits-service";
 
 const Home = () => {
   const location = useLocation();
@@ -11,20 +12,31 @@ const Home = () => {
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
   const userId = uid;
-  const findTuits = () => {
+
+  const findTuits = async () => {
+    let allTuits;
+
     if(uid) {
-      return service.findTuitByUser(uid)
-          .then(tuits => setTuits(tuits))
+      allTuits = await findTuitByUser(uid)
+      setTuits(allTuits)
     } else {
-      return service.findAllTuits()
-          .then(tuits => setTuits(tuits))
+      allTuits = await findAllTuits()
+      setTuits(allTuits)
     }
   }
+
   useEffect(() => {
     let isMounted = true;
-    findTuits()
+    try
+    {
+      findTuits()
+    }
+    catch(e) {
+      alert(e)
+    }
     return () => {isMounted = false;}
   }, []);
+
   const createTuit = () =>
       service.createTuit(userId, {tuit})
           .then(findTuits)
