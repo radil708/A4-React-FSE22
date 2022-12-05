@@ -24,11 +24,20 @@ const Profile = () => {
         <h4>{profile.username}</h4>
         <h6>@{profile.username}</h6>
         <button onClick={logout}>
-          Logout</button>
+            Logout
+        </button>
+          <div>
+          <Link to="/profile/mytuits">
+              Tuits</Link>
           <Routes>
               <Route path="/mytuits"
                      element={<MyTuits/>}/>
+              {/*<Route path="/tuits-and-replies"*/}
+              {/*       element={<TuitsAndReplies/>}/>*/}
+              {/*<Route path="/media"*/}
+              {/*       element={<Media/>}/>*/}
           </Routes>
+          </div>
 
       </div>
   );

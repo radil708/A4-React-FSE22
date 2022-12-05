@@ -5,7 +5,9 @@ import {useLocation, Link} from "react-router-dom";
 function Navigation() {
   const {pathname} = useLocation();
   // console.log(location.pathname);
+  // Navigation shows where links will fgo
   const links = [
+      // array, will be mapped, this is the file used to add new tabs on the left hand side
     {label: 'Tuiter', icon: 'fa-square-t', path: '/tuiter'},
     {label: 'Home', icon: 'fa-home', path: '/home'},
     {label: 'Explore', icon: 'fa-hashtag', path: '/explore'},
@@ -17,6 +19,7 @@ function Navigation() {
     {label: 'Movies', icon: 'fa-user', path: '/movies'},
     {label: 'More', icon: 'fa-circle-ellipsis', path: '/more'},
     {label: 'Login', icon: 'fa-user', path: '/login'},
+    {label: 'Sign Up', icon: 'fa-user', path: '/signup'}
   ];
   return (
     <div className="ttr-navigation">

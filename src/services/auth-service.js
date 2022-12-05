@@ -39,7 +39,7 @@ export const logout = async () => {
 
 export const login = async (credentials) => {
     const res = await api.post(`${AUTH_API}/login`, credentials)
-    console.log(res)
+    //console.log(res)
     return res.data
 }
 

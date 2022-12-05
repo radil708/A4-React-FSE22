@@ -4,14 +4,34 @@ import {useEffect, useState} from "react";
 import React from "react";
 import {UserList} from "./user-list";
 import * as service from "../../services/auth-service";
+import axios from "axios";
+import * as authService from "../../services/auth-service";
 
+// login function
 export const Login = () => {
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate()
-    const login = () =>
-        service.login(loginUser)
-            .then((user) => navigate('/profile/mytuits'))
-            .catch(e => alert(e));
+    const login = async () => {
+        // login a user
+        let controllerResp
+        try {
+            controllerResp = await authService.login(loginUser)
+        }
+        catch (e) {
+            alert(e)
+        }
+
+        if (controllerResp == null || controllerResp.Error != null) {
+            alert("User and password combo could not be found in database")
+        }
+        navigate('/profile')
+
+        // should navigate to profile NOT profile/mytuits
+        //navigate('/profile/mytuits')
+        //.then((user) => navigate('/profile/mytuits'))
+        //.catch(e => alert(e));
+    }
+
     return (
         <div>
             <h1>Login</h1>
@@ -27,6 +47,7 @@ export const Login = () => {
     );
 };
 
+export default Login
 
 // export const Login = () => {
 //   const [existingUsers, setExistingUsers] = useState([]);

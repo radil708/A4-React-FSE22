@@ -1,7 +1,7 @@
 import {profile, login, logout,signup} from "../services/auth-service";
 import {deleteUsersByUsername} from "../services/users-service";
 
-describe('Authentication Service Signup method', () => {
+describe('Authentication Service Signup method and logout', () => {
     //sample user to insert
     const ripley = {
         username: 'ellenripley',
@@ -30,17 +30,30 @@ describe('Authentication Service login method and profile', () => {
     const existing = {
         username: 'test1',
         password: 'testpass',
+        email : 'testemail@email.com'
     };
 
     beforeAll(async () => {
+        //delete user if it already exists
+        await deleteUsersByUsername(existing.username)
+
         //logout if currently logged in
-        //await logout()
+        await logout()
+
+        // create the user
+        const serverResp = await signup(existing)
+        // save id info
+        existing.id = serverResp.userId
+
         //login in to the existing profile
         await login(existing)
     })
 
     afterAll( async () => {
         await logout()
+
+        // delete test users
+        await deleteUsersByUsername(existing.username)
     })
 
 

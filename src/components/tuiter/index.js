@@ -15,7 +15,9 @@ import More from "../more";
 import {Login} from "../profile/login";
 import Movies from "../movies";
 import MovieDetails from "../movies/details";
-
+import Signup from "../signup";
+import MyTuits from "../profile/my-tuits";
+//This file is where you add actual paths and link functions that render page
 function Tuiter () {
   return(
     <HashRouter>
@@ -42,6 +44,8 @@ function Tuiter () {
               <Route path="/movies" element={<Movies/>}/>
               <Route path="/movies/:imdbID" element={<MovieDetails/>}/>
               <Route path="/more" element={<More/>}/>
+              <Route path="/signup" element={<Signup/>}/>
+              <Route path="/profile/mytuits" element={<MyTuits/>}/>
             </Routes>
           </div>
           <div className="ttr-right-column">
