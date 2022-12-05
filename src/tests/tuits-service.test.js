@@ -7,7 +7,7 @@ import {
     findTuitById,
     findTuitByUser
 } from "../services/tuits-service";
-import {signup,login,logout} from "../services/auth-service";
+import {signup, login, logout, profile} from "../services/auth-service";
 
 describe('can create tuit with REST API', () => {
     const ripley = {
@@ -404,4 +404,30 @@ describe('A4 test create Tuit by User', ()=> {
     })
 })
 
-describe('A4 testing ')
+describe('Fill in some tuits for A4' , () => {
+
+    const existingUser = {username: "user1", password : "p"}
+
+    test('make tuits for existing user', async () => {
+        await login(existingUser)
+        const constUserInfo = await profile()
+        const newTuit = {'tuit': 'Cats are cute'}
+        const createdTuit = await createTuitByUser(constUserInfo.userId, newTuit)
+        const newTuit2 = {'tuit': 'Dogs are cool'}
+        await createTuitByUser(constUserInfo.userId, newTuit2)
+
+    })
+})
+
+describe('Find tuit by user id for existing user' , () => {
+
+    const existingUser = {username: "user1", password : "p"}
+
+    test('make tuits for existing user', async () => {
+        await login(existingUser)
+        const constUserInfo = await profile()
+        let allTuitsByUser = await findTuitByUser(constUserInfo.userId)
+        //console.log(allTuitsByUser)
+        expect(allTuitsByUser.length).toEqual(2)
+    })
+})
