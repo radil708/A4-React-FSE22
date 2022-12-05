@@ -20,7 +20,7 @@ const Tuit = ({tuit, deleteTuit}) => {
           {tuit.postedBy && tuit.postedBy.username}
           @{tuit.postedBy && tuit.postedBy.username} -
           {tuit.published}</h2>
-        {tuit.tuit}
+        {tuit.tuitContent}
         {
           tuit.youtube &&
             <TuitVideo tuit={tuit}/>

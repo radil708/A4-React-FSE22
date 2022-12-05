@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import * as tuitService from "../../services/tuits-service";
 import {profile} from "../../services/auth-service";
+import Tuits from "../tuits";
 //import Tuit from "../tuits/tuit";
 //import Tuits from "../tuits";
 
@@ -51,13 +52,7 @@ const MyTuits = () => {
     //     .then(findMyTuits);
     return (
         <div>
-            <ul className="row">
-                {tuits.map((t) =>
-                    <li>
-                        {t.tuitContent}
-                    </li>)}
-
-            </ul>
+            <Tuits tuits={tuits} deleteTuit={deleteTuit}/>
         </div>
         //<header>Hello</header>
         // <div>
