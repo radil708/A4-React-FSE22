@@ -1,6 +1,7 @@
 import React from "react";
 import Tuits from "../tuits";
 import * as service from "../../services/tuits-service";
+import * as authService from "../../services/auth-service";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 
