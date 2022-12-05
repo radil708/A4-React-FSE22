@@ -1,7 +1,8 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as tuitService from "../../services/tuits-service";
 import {profile} from "../../services/auth-service";
-import Tuit from "../tuits/tuit";
+//import Tuit from "../tuits/tuit";
+//import Tuits from "../tuits";
 
 // cannot make outer func async
 const MyTuits = () => {
@@ -44,12 +45,18 @@ const MyTuits = () => {
             alert(e)
         }
     }
+
+
     // service.deleteTuit(tid)
     //     .then(findMyTuits);
     return (
         <div>
-            <ul className="list-group-item">
-                {tuits.map((t) => <li>{t.tuitContent}</li>)}
+            <ul className="row">
+                {tuits.map((t) =>
+                    <li>
+                        {t.tuitContent}
+                    </li>)}
+
             </ul>
         </div>
         //<header>Hello</header>

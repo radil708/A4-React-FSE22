@@ -1,8 +1,9 @@
 import React from "react";
 import Tuits from "../tuits";
-import * as service from "../../services/tuits-service";
+import * as tuitService from "../../services/tuits-service";
 import {useEffect, useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
+import {createTuitByUser, deleteTuit, findAllTuits, findTuitsByUser} from "../../services/tuits-service";
 
 const Home = () => {
   const location = useLocation();
@@ -10,12 +11,15 @@ const Home = () => {
   const [tuits, setTuits] = useState([]);
   const [tuit, setTuit] = useState('');
   const userId = uid;
+
   const findTuits = () => {
+    // if logged in, display my tuits
     if(uid) {
-      return service.findTuitByUser(uid)
+      return tuitService.findTuitsByUser(uid)
         .then(tuits => setTuits(tuits))
+    //otherwise display all tuits
     } else {
-      return service.findAllTuits()
+      return tuitService.findAllTuits()
         .then(tuits => setTuits(tuits))
     }
   }
@@ -25,10 +29,10 @@ const Home = () => {
     return () => {isMounted = false;}
   }, []);
   const createTuit = () =>
-      service.createTuit(userId, {tuit})
+      tuitService.createTuitByUser(userId, {tuit})
           .then(findTuits)
   const deleteTuit = (tid) =>
-      service.deleteTuit(tid)
+      tuitService.deleteTuit(tid)
           .then(findTuits)
   return(
     <div className="ttr-home">
