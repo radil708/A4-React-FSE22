@@ -22,6 +22,7 @@ else {
 const TUITS_API = `${BASE_URL}/api/tuits`;
 const USERS_API = `${BASE_URL}/api/users`;
 
+
 axios.defaults.withCredentials = true;
 const api = axios.create({
     withCredentials: true
