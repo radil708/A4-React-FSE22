@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //on local server to save money on server costs
-let testLocal = false
+let testLocal = true
 
 let BASE_URL
 
