@@ -30,7 +30,7 @@ const Tuits = ({tuits = [], deleteTuit,
         <div>
             <ul className="ttr-tuits list-group">
                 {
-                    tuits.map(tuit =>
+                    tuits.map && tuits.map(tuit =>
                         <Tuit key={tuit.tuitID}
                               deleteTuit={deleteTuit}
                               likeTuit={likeTuit}

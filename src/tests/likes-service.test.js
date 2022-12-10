@@ -82,3 +82,27 @@ describe('Toggle likes liking a new tuit', () => {
     })
 
 });
+
+//PLEASE DO NOT RUN THE TESTS BELOW, ONLY USED FOR CREATING SOME TUITS TO LIKE FOR A4 TESTING ON MY END
+describe('Add 2 tuits for testing A4', () => {
+    const existingUser = {
+        username: "user2",
+        password: "p"
+    }
+
+    test('have an existing user make new tuits with stats', async () => {
+        // login as an existing users
+        await login(existingUser)
+        //get crednetial info
+        const res = await profile()
+        existingUser.id = res.userId
+
+        //Ed sheeran fan anybody?
+        const newTuit1 = {tuit:"You make me feel like my troubled heart is a million miles away" }
+        const newTuit2 = {tuit: "I see the light shining through the rain, A thousand colors in the brighter shade"}
+
+        await createTuit(existingUser.id,newTuit1)
+        await createTuit(existingUser.id, newTuit2)
+        await logout()
+    })
+})
