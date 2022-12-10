@@ -61,5 +61,6 @@ describe('Authentication Service login method and profile', () => {
 
         const res = await profile()
         expect(res.username).toEqual('test1')
+        console.log(res)
     })
 })

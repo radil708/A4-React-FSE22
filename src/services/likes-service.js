@@ -29,3 +29,27 @@ export const createLike = async (userIdIn, tuitIdIn) => {
     const res = await axios.post(url)
     return res.data
 }
+
+export const deleteLike = async(likeIdIn) => {
+    let url = LIKES_API + `/${likeIdIn}`
+    const res = await axios.delete(url)
+    return res.data
+}
+
+export const findLikeByUserAndId = async(userIdIn, tuitIdIn) => {
+    let url = LIKES_API + `/users/${userIdIn}/tuits/${tuitIdIn}`
+    const res = await axios.get(url)
+    return res.data
+}
+
+export const toggleLikes = async(userIdIn, tuitIdIn) => {
+    let url = LIKES_API + `/users/${userIdIn}/tuits/${tuitIdIn}`
+    const res = await axios.put(url)
+    return res.data
+}
+
+export const countLikes = async(tuitIdIn) => {
+    let url = LIKES_API + `/tuits/${tuitIdIn}`
+    const res = await axios.get(url)
+    return (res.data).length
+}
