@@ -27,10 +27,14 @@ const Profile = () => {
         <button onClick={logout}>
             Logout
         </button>
+          <div>
           <Link to="/profile/mytuits">
               Tuits</Link>
+          </div>
+          <div>
           <Link to="/profile/mylikes">
               My Likes</Link>
+          </div>
           <Routes>
               <Route path="/mytuits"
                      element={<MyTuits/>}/>
