@@ -18,6 +18,7 @@ import MovieDetails from "../movies/details";
 import Signup from "../signup";
 import MyTuits from "../profile/my-tuits";
 import MyLikes from "../profile/my-likes";
+import MyDislikes from "../profile/my-dislikes";
 //This file is where you add actual paths and link functions that render page
 function Tuiter () {
   return(
@@ -48,6 +49,7 @@ function Tuiter () {
               <Route path="/signup" element={<Signup/>}/>
               <Route path="/profile/mytuits" element={<MyTuits/>}/>
               <Route path="/profile/mylikes" element={<MyLikes/>}/>
+              <Route path="/profile/mydislikes" element={<MyDislikes/>}/>
             </Routes>
           </div>
           <div className="ttr-right-column">

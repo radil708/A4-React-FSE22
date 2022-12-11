@@ -4,6 +4,7 @@ import {Link, useNavigate, Route, Routes} from "react-router-dom";
 import * as service from "../../services/auth-service";
 import MyTuits from "./my-tuits";
 import MyLikes from "./my-likes";
+import MyDislikes from "./my-dislikes";
 
 
 const Profile = () => {
@@ -35,11 +36,17 @@ const Profile = () => {
           <Link to="/profile/mylikes">
               My Likes</Link>
           </div>
+          <div>
+              <Link to="/profile/mydislikes">
+                  My Dislikes</Link>
+          </div>
           <Routes>
               <Route path="/mytuits"
                      element={<MyTuits/>}/>
               <Route path="/mylikes"
                      element={<MyLikes/>}/>
+              <Route path="/mydislikes"
+                     element={<MyDislikes/>}/>
               {/*<Route path="/tuits-and-replies"*/}
               {/*       element={<TuitsAndReplies/>}/>*/}
               {/*<Route path="/media"*/}
