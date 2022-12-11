@@ -8,15 +8,15 @@ const TuitStats = ({tuit, likeTuit}) => {
             <div className="col">
                 <span onClick={() => likeTuit(tuit)}>
                     {
-                        tuitLikeCount <= 0 &&
+                        tuit.stats.likes <= 0 &&
                         <i className="far fa-heart"></i>
                     }
                     {
-                        tuitLikeCount > 0  &&
+                        tuit.stats.likes > 0  &&
                         <i className="fas fa-heart" style={{color: 'red'}}></i>
                     }
                     {
-                        tuitStats  && tuitLikeCount
+                        tuit.stats  && tuit.stats.likes
                     }
                 </span>
             </div>

@@ -45,7 +45,7 @@ const Home = () => {
           .then(findTuits)
   return(
     <div className="ttr-home">
-      <Tuits tuits={tuits} deleteTuit={deleteTuit}/>
+      <Tuits tuits={tuits} deleteTuit={deleteTuit} refreshTuits={findTuits}/>
     </div>
   );
 

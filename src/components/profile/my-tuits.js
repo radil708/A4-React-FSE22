@@ -53,7 +53,7 @@ const MyTuits = () => {
     return (
         <div>
             <h1>My Tuits</h1>
-            <Tuits tuits={tuits} deleteTuit={deleteTuit}/>
+            <Tuits tuits={tuits} deleteTuit={deleteTuit} />
         </div>
         //<header>Hello</header>
         // <div>
