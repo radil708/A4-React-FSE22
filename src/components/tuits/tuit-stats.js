@@ -1,29 +1,30 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {findTuitById} from "../../services/tuits-service";
 
 const TuitStats = ({tuit, likeTuit}) => {
-    // some tuits still use old schema, can't really
-    //interact with them but can make sure they have a
-    //default stats info
-    if (tuit.stats == null) {
-        tuit.stats = {
-            replies:  0,
-            retuits:  0,
-            likes: 0
-        }
-    }
+
+    tuit.stats = tuit.stats ?? {replies:  0, retuits:  0, likes: 0}
+    // if (tuit.stats == null) {
+    //     tuit.stats = {
+    //         replies:  0,
+    //         retuits:  0,
+    //         likes: 0
+    //     }
+    // }
     return (
         <div className="row mt-2">
             <div className="col">
                 <span onClick={() => likeTuit(tuit)}>
-                    { tuit.stats.likes > 0  &&
-                        <i className="fas fa-heart" style={{color: 'red'}}></i>
-                    }
                     {
-                        tuit.stats.likes <= 0 &&
+                        tuit.stats.likes == null || tuit.stats.likes <= 0 &&
                         <i className="far fa-heart"></i>
                     }
                     {
-                        tuit.stats && tuit.stats.likes
+                        tuit.stats.likes > 0  &&
+                        <i className="fas fa-heart" style={{color: 'red'}}></i>
+                    }
+                    {
+                        (tuit.stats ?? 0) && (tuit.stats.likes ?? 0)
                     }
                 </span>
             </div>

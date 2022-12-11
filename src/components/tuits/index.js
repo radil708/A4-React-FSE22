@@ -20,7 +20,7 @@ const Tuits = ({tuits = [], deleteTuit,
         // in my implmentation tuit id is in the tuitID property
         try{
             await toggleLikes(currentUserId,tuit.tuitID)
-            refreshTuits()
+            //refreshTuits
         }
         catch (e) {
             alert(e)

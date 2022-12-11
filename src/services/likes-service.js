@@ -48,8 +48,15 @@ export const toggleLikes = async(userIdIn, tuitIdIn) => {
     return res.data
 }
 
+
 export const countLikes = async(tuitIdIn) => {
     let url = LIKES_API + `/tuits/${tuitIdIn}`
     const res = await axios.get(url)
     return (res.data).length
+}
+
+export const findTuitsLikedByUser = async(userId) => {
+    let url = LIKES_API + `/users/${userId}`
+    const res = await axios.get(url)
+    return res.data
 }

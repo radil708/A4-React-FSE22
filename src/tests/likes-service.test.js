@@ -1,4 +1,4 @@
-import {toggleLikes,countLikes} from "../services/likes-service";
+import {toggleLikes, countLikes, findTuitsLikedByUser} from "../services/likes-service";
 import {createUser, deleteUsersByUsername, findUserByCredentials} from "../services/users-service";
 import {createTuit, deleteTuit, findTuitByUser} from "../services/tuits-service";
 import {login, logout, profile} from "../services/auth-service";
@@ -83,6 +83,8 @@ describe('Toggle likes liking a new tuit', () => {
 
 });
 
+
+
 //PLEASE DO NOT RUN THE TESTS BELOW, ONLY USED FOR CREATING SOME TUITS TO LIKE FOR A4 TESTING ON MY END
 describe('Add 2 tuits for testing A4', () => {
     const existingUser = {
@@ -105,4 +107,49 @@ describe('Add 2 tuits for testing A4', () => {
         await createTuit(existingUser.id, newTuit2)
         await logout()
     })
+})
+//PLEASE DO NOT RUN THE TESTS BELOW, ONLY USED FOR CREATING SOME TUITS TO LIKE FOR A4 TESTING ON MY END
+describe('user1 likes 2 new tuits of user2', () => {
+    const existingUser1 = {
+        username: "user1",
+        password: "p"
+    }
+
+    const existingUser2 = {
+        username: "user2",
+        password: "p"
+    }
+
+    const allTuitIdsofUser2 = []
+
+    beforeAll(async () => {
+        const targetUser = await login(existingUser2)
+        existingUser2.id = targetUser.userId
+        const allUser2Tuits = await findTuitByUser(existingUser2.id)
+        allUser2Tuits.forEach(eachTuit => allTuitIdsofUser2.push(eachTuit.tuitID))
+        await logout()
+    })
+
+    test('user1 likes user2s tuits', async () => {
+        await login(existingUser1)
+        existingUser1.id = (await profile()).userId
+        await allTuitIdsofUser2.forEach(async eachTId => await toggleLikes(existingUser1.id,eachTId))
+
+        await logout()
+    })
+})
+
+// PLEASE DON"T RUN THIS Test, just verifying a method, and amount of user1 likes may change as
+// the program is being used
+test ('get total likes by user1, should be 3', async () => {
+    const existingUser1 = {
+        username: "user1",
+        password: "p"
+    }
+    await login(existingUser1)
+    existingUser1.id = (await profile()).userId
+    const allTuitsLikedByUser1 = await findTuitsLikedByUser(existingUser1.id)
+    console.log(allTuitsLikedByUser1)
+    expect(3).toEqual(allTuitsLikedByUser1.length)
+    logout()
 })
