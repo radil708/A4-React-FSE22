@@ -2,7 +2,7 @@ import React from "react";
 import TuitStats from "./tuit-stats";
 import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
-
+//
 const Tuit = ({tuit, deleteTuit,likeTuit}) => {
   return(
     <li className="p-2 ttr-tuit list-group-item d-flex rounded-0">
