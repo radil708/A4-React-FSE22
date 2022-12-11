@@ -20,6 +20,11 @@ const TuitStats = ({tuit, likeTuit}) => {
                     }
                 </span>
             </div>
+            <div className="col">
+                <span>
+                {<i className="fa-light fa-thumbs-down"></i>}
+                </span>
+            </div>
         </div>
     )
 }
